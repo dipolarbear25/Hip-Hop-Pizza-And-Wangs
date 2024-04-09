@@ -1,3 +1,4 @@
+
 namespace HHPW.Models
 {
     public class Item
@@ -5,6 +6,6 @@ namespace HHPW.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
-        public List<OrderItem> Order { get; set; } = new List<OrderItem>();
+        public List<OrderItemDto> Order { get; set; } = new List<OrderItemDto>();
     }
 }

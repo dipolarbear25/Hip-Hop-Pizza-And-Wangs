@@ -10,7 +10,7 @@ namespace HHPW.Data
 			new Order
 			{
 				Id = 1,
-				Uid = 1,
+				Uid = "1",
 				CreatedOn = DateTime.Now,
 				Name = "Austin",
 				Status = true,
@@ -18,13 +18,13 @@ namespace HHPW.Data
 				Email = "mangumaustin@gmail.com",
 				Type = "Pick up",
 				PaymentType = "Debit",
-				Total = 20.00,
-				Tip = 5.00,
+				Total = 20,
+				Tip = 5,
 			},
 			new Order
 			{
 				Id = 2,
-				Uid = 2,
+				Uid = "2",
 				CreatedOn = DateTime.Now,
 				Name = "Bria",
 				Status = false,
@@ -32,8 +32,8 @@ namespace HHPW.Data
 				Email = "mangumbria@gmail.com",
 				Type = "Delivery",
 				PaymentType = "Cash",
-				Total = 20.00,
-				Tip = 5.00,
+				Total = 20,
+				Tip = 5,
 			}
 		};
 	}
