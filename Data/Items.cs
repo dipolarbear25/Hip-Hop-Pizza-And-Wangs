@@ -16,7 +16,7 @@ namespace HHPW.Data
                 Name = "Medium batch of Wings",
                 Price = 20.00
             }
-        }
+        };
 
     }
 }

@@ -13,6 +13,6 @@ namespace HHPW.Models
         public string PaymentType { get; set; }
         public int Total {  get; set; }
         public int Tip { get; set; }
-        public ICollection<Item> Items { get; set; }
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
     }
 }

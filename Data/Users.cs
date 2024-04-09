@@ -19,7 +19,7 @@ namespace HHPW.Data
                 Name = "Jasmine",
                 Uid = 2
             }
-        }
+        };
 
     }
 }
