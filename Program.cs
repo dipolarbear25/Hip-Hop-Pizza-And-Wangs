@@ -36,4 +36,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+ItemsAPI.Map(app);
+OrdersAPI.Map(app);
+UsersAPI.Map(app);
+OrderItemAPI.Map(app);
+
 app.Run();
