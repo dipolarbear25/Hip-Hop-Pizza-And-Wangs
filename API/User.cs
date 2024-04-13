@@ -7,10 +7,10 @@ namespace HHPW.API
     {
         public static void Map(WebApplication app)
         {
-            app.MapGet("/user/{uid}", (HipHopPizzaAndWangsDbContext db, int uid) =>
-            {
-                var user = db.Users.Where(user => user.Uid == uid).ToList();
 
+            app.MapGet("/checkuser/{uid}", (HipHopPizzaAndWangsDbContext db, string uid) =>
+            {
+                var user = db.Users.Where(x => x.Uid == uid).ToList();
                 if (uid == null)
                 {
                     return Results.NotFound();
@@ -21,7 +21,7 @@ namespace HHPW.API
                 }
             });
 
-            app.MapPost("/user", (HipHopPizzaAndWangsDbContext db, User newUser) =>
+            app.MapPost("/register", (HipHopPizzaAndWangsDbContext db, User newUser) =>
             {
                 db.Users.Add(newUser);
                 db.SaveChanges();

@@ -6,7 +6,21 @@ using HHPW;
 using HHPW.API;
 using Microsoft.AspNetCore.Components.Forms;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",
+                                "https://localhost:7164") // Change to match your SWAGGER Url *****
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,6 +40,8 @@ builder.Services.Configure<JsonOptions>(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

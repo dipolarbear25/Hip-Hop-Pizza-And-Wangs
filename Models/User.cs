@@ -4,6 +4,6 @@ namespace HHPW.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Uid { get; set; }
+        public string? Uid { get; set; }
     }
 }

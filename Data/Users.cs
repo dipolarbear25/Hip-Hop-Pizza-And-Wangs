@@ -10,14 +10,14 @@ namespace HHPW.Data
             new User
             {
                 Id = 1,
-                Name = "Jake",
-                Uid = 1
+                Name = "Austin Mangum",
+                Uid = ""
             },
             new User
             {
                 Id = 2,
-                Name = "Jasmine",
-                Uid = 2
+                Name = "Bria M",
+                Uid = ""
             }
         };
 
