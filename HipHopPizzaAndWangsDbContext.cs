@@ -9,6 +9,7 @@ namespace HHPW
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderType> OrderTypes { get; set; }
 
         public HipHopPizzaAndWangsDbContext(DbContextOptions<HipHopPizzaAndWangsDbContext> options) : base(options)
         {
@@ -19,6 +20,7 @@ namespace HHPW
             modelBuilder.Entity<User>().HasData(UserData.Users);
             modelBuilder.Entity<Item>().HasData(ItemData.Items);
             modelBuilder.Entity<Order>().HasData(OrderData.Orders);
+            modelBuilder.Entity<OrderType>().HasData(OrderTypeData.OrderTypes);
         }
     }
 }

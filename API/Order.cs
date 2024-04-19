@@ -43,7 +43,6 @@ namespace HHPW.API
                 existingOrder.Status = updatedOrder.Status;
                 existingOrder.PhoneNum = updatedOrder.PhoneNum;
                 existingOrder.Email = updatedOrder.Email;
-                existingOrder.Type = updatedOrder.Type;
                 existingOrder.PaymentType = updatedOrder.PaymentType;
                 existingOrder.Total = updatedOrder.Total;
                 existingOrder.Tip = updatedOrder.Tip;
@@ -76,6 +75,8 @@ namespace HHPW.API
                 db.SaveChanges();
                 return Results.NoContent();
             });
+
+
 
             app.MapGet("/revenue/total", (HipHopPizzaAndWangsDbContext db) =>
             {
