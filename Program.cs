@@ -56,5 +56,6 @@ ItemsAPI.Map(app);
 OrdersAPI.Map(app);
 UsersAPI.Map(app);
 OrderItemAPI.Map(app);
+OrderTypeAPI.Map(app);
 
 app.Run();
