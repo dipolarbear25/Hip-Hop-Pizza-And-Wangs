@@ -24,7 +24,7 @@ namespace HHPW.API
                 return Results.Ok(orderDetails);
             });
 
-            app.MapPost("/orders", (HipHopPizzaAndWangsDbContext db, Order newOrder) =>
+            app.MapPost("/api/orders", (HipHopPizzaAndWangsDbContext db, Order newOrder) =>
             {
                 db.Orders.Add(newOrder);
                 db.SaveChanges();
@@ -77,6 +77,12 @@ namespace HHPW.API
                 return Results.NoContent();
             });
 
+            app.MapGet("/revenue/total", (HipHopPizzaAndWangsDbContext db) =>
+            {
+                var totalRevenue = db.Orders.Sum(o => o.Total + o.Tip);
+
+                return Results.Ok(new { Total = totalRevenue });
+            });
 
         }
     }
