@@ -12,10 +12,10 @@ namespace HHPW.API
                 return db.Orders.ToList();
             });
 
-            app.MapGet("api/orders/{id}", (HipHopPizzaAndWangsDbContext db, int id) =>
+            app.MapGet("api/orders/{uid}", (HipHopPizzaAndWangsDbContext db, string uid) =>
             {
                 var orderDetails = db.Orders
-                .FirstOrDefault(orders => orders.Id == id);
+                .FirstOrDefault(orders => orders.Uid == uid);
 
                 if (orderDetails == null)
                 {

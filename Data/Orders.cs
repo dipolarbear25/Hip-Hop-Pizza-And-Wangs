@@ -10,11 +10,11 @@ namespace HHPW.Data
 			new Order
 			{
 				Id = 1,
-				Uid = "1",
+				Uid = "zN5lhMboI3Sv4UwtErkrlHlvPfn2",
 				CreatedOn = DateTime.Now,
 				Name = "Austin",
 				Status = true,
-				PhoneNum = 9319990000,
+				PhoneNum = "931-999-0000",
 				Email = "mangumaustin@gmail.com",
 				PaymentType = "Debit",
 				Total = 20,
@@ -27,7 +27,7 @@ namespace HHPW.Data
 				CreatedOn = DateTime.Now,
 				Name = "Bria",
 				Status = false,
-				PhoneNum = 9319990000,
+				PhoneNum = "931-999-0000",
 				Email = "mangumbria@gmail.com",
 				PaymentType = "Cash",
 				Total = 20,

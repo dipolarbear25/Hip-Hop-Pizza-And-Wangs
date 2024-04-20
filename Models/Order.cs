@@ -7,7 +7,7 @@ namespace HHPW.Models
         public DateTime CreatedOn { get; set; }
         public string Name { get; set; }
         public bool Status { get; set; }
-        public long PhoneNum { get; set; }
+        public string PhoneNum { get; set; }
         public string Email { get; set; }
         public string PaymentType { get; set; }
         public int Total {  get; set; }

@@ -3,6 +3,7 @@ using System;
 using HHPW;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hip_Hop_Pizza_and_Wangs.Migrations
 {
     [DbContext(typeof(HipHopPizzaAndWangsDbContext))]
-    partial class HipHopPizzaAndWangsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240420003835_seventhcreate")]
+    partial class seventhcreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,11 +106,11 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2024, 4, 19, 19, 40, 5, 315, DateTimeKind.Local).AddTicks(2921),
+                            CreatedOn = new DateTime(2024, 4, 19, 19, 38, 35, 585, DateTimeKind.Local).AddTicks(81),
                             Email = "mangumaustin@gmail.com",
                             Name = "Austin",
                             PaymentType = "Debit",
-                            PhoneNum = "931-999-0000",
+                            PhoneNum = "9319990000",
                             Status = true,
                             Tip = 5,
                             Total = 20,
@@ -117,11 +119,11 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2024, 4, 19, 19, 40, 5, 316, DateTimeKind.Local).AddTicks(7032),
+                            CreatedOn = new DateTime(2024, 4, 19, 19, 38, 35, 586, DateTimeKind.Local).AddTicks(3710),
                             Email = "mangumbria@gmail.com",
                             Name = "Bria",
                             PaymentType = "Cash",
-                            PhoneNum = "931-999-0000",
+                            PhoneNum = "9319990000",
                             Status = false,
                             Tip = 5,
                             Total = 20,
