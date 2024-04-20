@@ -10,6 +10,7 @@ namespace HHPW
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderType> OrderTypes { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         public HipHopPizzaAndWangsDbContext(DbContextOptions<HipHopPizzaAndWangsDbContext> options) : base(options)
         {

@@ -12,6 +12,6 @@ namespace HHPW.Models
         public string PaymentType { get; set; }
         public int Total {  get; set; }
         public int Tip { get; set; }
-        public List<OrderItemDto> Items { get; set; } = new List<OrderItemDto>();
+        public List<OrderItem> OrItemsConnection { get; set; } = new List<OrderItem>();
     }
 }

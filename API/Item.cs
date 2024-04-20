@@ -27,15 +27,13 @@ namespace HHPW.API
 
             app.MapGet("/api/readItemsByOrderId/{orderId}", (HipHopPizzaAndWangsDbContext db, int orderId) =>
             {
-                Order order = db.Orders.SingleOrDefault(o => o.Id == orderId);
+                Order order = db.Orders.Include(o => o.OrItemsConnection).SingleOrDefault(o => o.Id == orderId);
                 if (order == null)
                 {
                     return Results.NotFound("Order not found");
                 }
 
-                List<Item> items = db.Items
-                                        .Where(i => i.Order.Any(oi => oi.Order.Id == orderId))
-                                        .ToList();
+                List<Item> items = order.OrItemsConnection.Select(oi => oi.Item).ToList();
 
                 if (items.Count == 0)
                 {
@@ -44,6 +42,7 @@ namespace HHPW.API
 
                 return Results.Ok(items);
             });
+
 
             app.MapPost("/api/createItem", (HipHopPizzaAndWangsDbContext db, Item item) =>
             {

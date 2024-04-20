@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Hip_Hop_Pizza_and_Wangs.Migrations
 {
     [DbContext(typeof(HipHopPizzaAndWangsDbContext))]
-    [Migration("20240420004005_eighthcreate")]
-    partial class eighthcreate
+    [Migration("20240420122228_pleaseWOrkcreate")]
+    partial class pleaseWOrkcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -106,7 +106,7 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2024, 4, 19, 19, 40, 5, 315, DateTimeKind.Local).AddTicks(2921),
+                            CreatedOn = new DateTime(2024, 4, 20, 7, 22, 27, 844, DateTimeKind.Local).AddTicks(3903),
                             Email = "mangumaustin@gmail.com",
                             Name = "Austin",
                             PaymentType = "Debit",
@@ -119,7 +119,7 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2024, 4, 19, 19, 40, 5, 316, DateTimeKind.Local).AddTicks(7032),
+                            CreatedOn = new DateTime(2024, 4, 20, 7, 22, 27, 845, DateTimeKind.Local).AddTicks(7212),
                             Email = "mangumbria@gmail.com",
                             Name = "Bria",
                             PaymentType = "Cash",
@@ -131,7 +131,7 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                         });
                 });
 
-            modelBuilder.Entity("HHPW.Models.OrderItemDto", b =>
+            modelBuilder.Entity("HHPW.Models.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +151,7 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItemDto");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("HHPW.Models.OrderType", b =>
@@ -222,16 +222,16 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                         });
                 });
 
-            modelBuilder.Entity("HHPW.Models.OrderItemDto", b =>
+            modelBuilder.Entity("HHPW.Models.OrderItem", b =>
                 {
                     b.HasOne("HHPW.Models.Item", "Item")
-                        .WithMany("Order")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HHPW.Models.Order", "Order")
-                        .WithMany("Items")
+                        .WithMany("OrItemsConnection")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -241,14 +241,9 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("HHPW.Models.Item", b =>
-                {
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("HHPW.Models.Order", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("OrItemsConnection");
                 });
 #pragma warning restore 612, 618
         }

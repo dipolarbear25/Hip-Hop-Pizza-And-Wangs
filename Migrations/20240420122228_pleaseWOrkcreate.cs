@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Hip_Hop_Pizza_and_Wangs.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class pleaseWOrkcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,9 +34,8 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                     CreatedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
-                    PhoneNum = table.Column<long>(type: "bigint", nullable: false),
+                    PhoneNum = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: false),
                     PaymentType = table.Column<string>(type: "text", nullable: false),
                     Total = table.Column<int>(type: "integer", nullable: false),
                     Tip = table.Column<int>(type: "integer", nullable: false)
@@ -44,6 +43,19 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,7 +73,7 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItemDto",
+                name: "OrderItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -71,15 +83,15 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItemDto", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItemDto_Items_ItemId",
+                        name: "FK_OrderItems_Items_ItemId",
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderItemDto_Orders_OrderId",
+                        name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id",
@@ -96,12 +108,22 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "Id", "CreatedOn", "Email", "Name", "PaymentType", "PhoneNum", "Status", "Tip", "Total", "Type", "Uid" },
+                table: "OrderTypes",
+                columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 13, 13, 30, 50, 607, DateTimeKind.Local).AddTicks(8261), "mangumaustin@gmail.com", "Austin", "Debit", 9319990000L, true, 5, 20, "Pick up", "1" },
-                    { 2, new DateTime(2024, 4, 13, 13, 30, 50, 609, DateTimeKind.Local).AddTicks(2361), "mangumbria@gmail.com", "Bria", "Cash", 9319990000L, false, 5, 20, "Delivery", "2" }
+                    { 1, "Credit" },
+                    { 2, "Debit" },
+                    { 3, "Phone" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "CreatedOn", "Email", "Name", "PaymentType", "PhoneNum", "Status", "Tip", "Total", "Uid" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 4, 20, 7, 22, 27, 844, DateTimeKind.Local).AddTicks(3903), "mangumaustin@gmail.com", "Austin", "Debit", "931-999-0000", true, 5, 20, "zN5lhMboI3Sv4UwtErkrlHlvPfn2" },
+                    { 2, new DateTime(2024, 4, 20, 7, 22, 27, 845, DateTimeKind.Local).AddTicks(7212), "mangumbria@gmail.com", "Bria", "Cash", "931-999-0000", false, 5, 20, "2" }
                 });
 
             migrationBuilder.InsertData(
@@ -114,20 +136,23 @@ namespace Hip_Hop_Pizza_and_Wangs.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItemDto_ItemId",
-                table: "OrderItemDto",
+                name: "IX_OrderItems_ItemId",
+                table: "OrderItems",
                 column: "ItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItemDto_OrderId",
-                table: "OrderItemDto",
+                name: "IX_OrderItems_OrderId",
+                table: "OrderItems",
                 column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderItemDto");
+                name: "OrderItems");
+
+            migrationBuilder.DropTable(
+                name: "OrderTypes");
 
             migrationBuilder.DropTable(
                 name: "Users");

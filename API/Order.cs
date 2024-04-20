@@ -12,7 +12,7 @@ namespace HHPW.API
                 return db.Orders.ToList();
             });
 
-            app.MapGet("api/orders/{uid}", (HipHopPizzaAndWangsDbContext db, string uid) =>
+            app.MapGet("/api/userorders/{uid}", (HipHopPizzaAndWangsDbContext db, string uid) =>
             {
                 var orderDetails = db.Orders
                 .FirstOrDefault(orders => orders.Uid == uid);
@@ -24,6 +24,21 @@ namespace HHPW.API
                 return Results.Ok(orderDetails);
             });
 
+            app.MapGet("/api/orders/{id}", (HipHopPizzaAndWangsDbContext db, int id) =>
+            {
+                var order = db.Orders
+                              .Include(o => o.OrItemsConnection) 
+                              .FirstOrDefault(o => o.Id == id);
+
+                if (order == null)
+                {
+                    return Results.NotFound("Order not found.");
+                }
+
+                return Results.Ok(order);
+            });
+
+
             app.MapPost("/api/orders", (HipHopPizzaAndWangsDbContext db, Order newOrder) =>
             {
                 db.Orders.Add(newOrder);
@@ -33,40 +48,23 @@ namespace HHPW.API
 
             app.MapPut("/api/updateOrder/{orderId}", (HipHopPizzaAndWangsDbContext db, int orderId, Order updatedOrder) =>
             {
-                Order existingOrder = db.Orders.SingleOrDefault(o => o.Id == orderId);
-                if (existingOrder == null)
-                {
-                    return Results.NotFound("Order not found");
-                }
-
-                existingOrder.Name = updatedOrder.Name;
-                existingOrder.Status = updatedOrder.Status;
-                existingOrder.PhoneNum = updatedOrder.PhoneNum;
-                existingOrder.Email = updatedOrder.Email;
-                existingOrder.PaymentType = updatedOrder.PaymentType;
-                existingOrder.Total = updatedOrder.Total;
-                existingOrder.Tip = updatedOrder.Tip;
-
-                foreach (var updatedOrderItem in updatedOrder.Items)
-                {
-                    OrderItemDto existingOrderItem = existingOrder.Items.SingleOrDefault(oi => oi.Id == updatedOrderItem.Id);
-                    if (existingOrderItem == null)
-                    {
-                        existingOrderItem = new OrderItemDto();
-                        existingOrder.Items.Add(existingOrderItem);
-                    }
-
-                    existingOrderItem.Item = updatedOrderItem.Item;
-                }
+                var orderToUpdate = db.Orders.Single(o => o.Id == orderId);
+                orderToUpdate.Name = updatedOrder.Name;
+                orderToUpdate.Status = updatedOrder.Status;
+                orderToUpdate.PhoneNum = updatedOrder.PhoneNum;
+                orderToUpdate.Email = updatedOrder.Email;
+                orderToUpdate.CreatedOn = updatedOrder.CreatedOn;
+                orderToUpdate.PaymentType = updatedOrder.PaymentType;
+                orderToUpdate.Total = updatedOrder.Total;
+                orderToUpdate.Tip = updatedOrder.Tip;
 
                 db.SaveChanges();
-
-                return Results.Ok("Order updated successfully");
+                return Results.Created($"/orders/{orderToUpdate.Id}", updatedOrder);
             });
 
             app.MapDelete("/api/deleteOrder/{id}", (HipHopPizzaAndWangsDbContext db, int id) =>
             {
-                Order deleteOrder = db.Orders.SingleOrDefault(commentToDelete => commentToDelete.Id == id);
+                Order deleteOrder = db.Orders.SingleOrDefault(orderToDelete => orderToDelete.Id == id);
                 if (deleteOrder == null)
                 {
                     return Results.NotFound();
@@ -75,7 +73,6 @@ namespace HHPW.API
                 db.SaveChanges();
                 return Results.NoContent();
             });
-
 
 
             app.MapGet("/revenue/total", (HipHopPizzaAndWangsDbContext db) =>

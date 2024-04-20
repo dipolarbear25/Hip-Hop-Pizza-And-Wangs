@@ -8,7 +8,7 @@ namespace HHPW.API
         {
             app.MapPost("/api/addItemToOrder/{orderId}", (HipHopPizzaAndWangsDbContext db, int orderId, Item newItem) =>
             {
-                Order order = db.Orders.Include(o => o.Items).SingleOrDefault(o => o.Id == orderId);
+                Order order = db.Orders.Include(o => o.OrItemsConnection).SingleOrDefault(o => o.Id == orderId);
                 if (order == null)
                 {
                     return Results.NotFound("Order not found");
@@ -20,19 +20,40 @@ namespace HHPW.API
                     return Results.NotFound("Item not found");
                 }
 
-                OrderItemDto newOrderItem = new OrderItemDto
+                OrderItem newOrderItem = new OrderItem
                 {
                     Order = order,
                     Item = existingItem
                 };
 
-                order.Items.Add(newOrderItem);
+                order.OrItemsConnection.Add(newOrderItem);
 
                 db.SaveChanges();
 
                 return Results.Ok("Item added to order successfully");
             });
 
+            app.MapDelete("/api/deleteItemFromOrder/{orderId}/{itemId}", (HipHopPizzaAndWangsDbContext db, int orderId, int itemId) =>
+            {
+                Order order = db.Orders.Include(o => o.OrItemsConnection).SingleOrDefault(o => o.Id == orderId);
+                if (order == null)
+                {
+                    return Results.NotFound("Order not found");
+                }
+
+                OrderItem orderItem = order.OrItemsConnection.FirstOrDefault(oi => oi.Item.Id == itemId);
+                if (orderItem == null)
+                {
+                    return Results.NotFound("Item not found in the order");
+                }
+
+                order.OrItemsConnection.Remove(orderItem);
+                db.OrderItems.Remove(orderItem);
+
+                db.SaveChanges();
+
+                return Results.Ok("Item deleted from order successfully");
+            });
 
         }
     }
